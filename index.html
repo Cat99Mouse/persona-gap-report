@@ -700,9 +700,9 @@ function inviteCodeFromUrl(){
 function copyInvite(){
   if(!state.self) return;
   const where = IS_WEB
-    ? '点开这个链接直接开始评价我（好友码已经带上了，不用手输）：' + inviteUrl()
-    : '打开页面后选「帮好友评价」，输入好友码 ' + state.self.code;
-  const text = '我做了个「人设偏差报告」，想看看你眼中的我是什么样。' + where + '，16 道题就好。';
+    ? '点开链接直接开始评价我（好友码已带上）：' + inviteUrl() + '。16 道题就好。'
+    : '打开页面后选「帮好友评价」，输入好友码 ' + state.self.code + '。16 道题就好。';
+  const text = '我的人设报告已出炉，就等你来拆台——你眼中的我，和我说的差多少？' + where;
   copyText(text, '邀请文案已复制');
 }
 
