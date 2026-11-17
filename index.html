@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f6f1e7">
-<meta name="description" content="16 道生活场景题，测出你眼中的自己，和朋友眼中的你差多少。">
-<meta property="og:title" content="你被误读了吗？· 偏差报告">
-<meta property="og:description" content="16 道题，看看朋友眼中的你，和你想的差多少。">
+<meta name="description" content="16 道生活场景题，测出你的人设，在朋友眼里崩成什么样。">
+<meta property="og:title" content="你的人设崩了没？· 人设偏差报告">
+<meta property="og:description" content="16 道题，看看你给自己立的人设，在朋友眼里还剩几分。">
 <meta property="og:type" content="website">
-<title>你被误读了吗？· 偏差报告</title>
+<title>你的人设崩了没？· 人设偏差报告</title>
 <style>
   :root{
     --site-bg:#f6f1e7;
@@ -451,7 +451,7 @@ function misreadSentence(g){
   }
   const direction = g.gap > 0 ? d.highLabel : d.lowLabel;
   if(abs >= 25){
-    return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——这已经不是误读，是两个人。他们觉得你更「' + direction + '」。';
+    return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——这已经不是小差距，是两个人。他们觉得你更「' + direction + '」。';
   }
   if(abs >= 12){
     return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——他们看到的你，和你以为的差挺多。在朋友眼里，你更「' + direction + '」。';
@@ -648,7 +648,7 @@ function renderHome(){
   app.innerHTML = `
     <section class="screen">
       <div class="badge">16 题 · 约 3 分钟 · 娱乐向</div>
-      <h1 class="brand">你被误读了吗？</h1>
+      <h1 class="brand">你的人设<br>崩了没？</h1>
       <p class="lede">你眼中的自己，和朋友眼中的你，<br>可能根本不是同一个人。</p>
       <div class="hero-art" aria-hidden="true">
         <div class="face you"><span>你眼中的<br>自己</span></div>
@@ -1025,7 +1025,7 @@ function renderReport(){
 
   const misreadHtml = analysis ? `
     <div class="card callout">
-      <p class="eyebrow">最大误读</p>
+      <p class="eyebrow">最大落差</p>
       <h3>${DIMS[analysis.max.i].name}</h3>
       <div class="compare">
         <div><b>${analysis.max.self}</b><span>你自评</span></div>
