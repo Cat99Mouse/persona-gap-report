@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f1e7">
+<meta name="description" content="16 道生活场景题，测出你眼中的自己，和朋友眼中的你差多少。">
+<meta property="og:title" content="你被误读了吗？· 人设偏差报告">
+<meta property="og:description" content="16 道题，看看朋友眼中的你，和你想的差多少。">
+<meta property="og:type" content="website">
+<title>你被误读了吗？· 人设偏差报告</title>
+<style>
+  :root{
+    --site-bg:#f6f1e7;
+    --site-fg:#1d1b18;
+    --site-accent:#ff5a3c;
+    --site-on-accent:#ffffff;
+    --site-surface:#fffdf8;
+    --site-muted:#857d70;
+    --site-border:#e7dfd1;
+    --site-font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --site-radius:22px;
+    --site-space:1;
+    --site-type:1;
+    --site-motion:1;
+    --bg:var(--site-bg);
+    --card:var(--site-surface);
+    --ink:var(--site-fg);
+    --muted:var(--site-muted);
+    --line:var(--site-border);
+    --accent:var(--site-accent);
+    --blue:#2f6bff;
+    --shadow:0 10px 30px rgba(60,45,20,.08);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--site-font);
+    background:
+      radial-gradient(circle at 12% 8%, rgba(255,90,60,.10), transparent 34%),
+      radial-gradient(circle at 88% 92%, rgba(47,107,255,.10), transparent 36%),
+      var(--bg);
+    color:var(--ink);
+    min-height:100vh;
+  }
+  #app{max-width:520px;margin:0 auto;padding:calc(28px * var(--site-space,1)) calc(20px * var(--site-space,1)) calc(56px * var(--site-space,1));min-height:100vh;display:flex;flex-direction:column}
+  #app > *{animation:fadeUp calc(.32s * var(--site-motion,1)) ease both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  h1,h2,h3,p{margin-top:0}
+  .screen{width:100%}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:99px;background:#fff6ee;border:1px solid #f1d9cc;color:#a8452f;font-size:11.5px;font-weight:600;letter-spacing:.4px;margin-bottom:18px}
+  .brand{font-family:"Songti SC","STSong",Georgia,serif;font-size:calc(36px * var(--site-type,1));line-height:1.14;letter-spacing:-.6px;margin:0 0 12px;font-weight:700}
+  .brand.report{font-size:calc(30px * var(--site-type,1))}
+  .lede{font-size:15px;line-height:1.7;color:#5d564c;margin:0 0 24px}
+  .sub{font-size:13.5px;line-height:1.7;color:var(--muted);margin:0}
+  .eyebrow{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+  .hero-art{display:flex;align-items:center;justify-content:center;margin:26px 0 28px}
+  .face{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;text-align:center;color:#fff;font-size:12px;line-height:1.45;font-weight:600;letter-spacing:.3px}
+  .face.you{background:linear-gradient(145deg,#ff7a5c,#ff4a2a);box-shadow:0 16px 30px rgba(255,90,60,.26)}
+  .face.them{background:linear-gradient(145deg,#6a96ff,#2f5fff);box-shadow:0 16px 30px rgba(47,107,255,.24);margin-left:-18px;mix-blend-mode:multiply}
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11.5px;margin:8px 0}
+  .or:before,.or:after{content:"";height:1px;background:var(--line);flex:1}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:52px;border-radius:calc(var(--site-radius,22px) * .72);border:1px solid transparent;font:inherit;font-size:calc(16px * var(--site-type,1));font-weight:600;cursor:pointer;background:#fff;color:var(--ink);transition:transform calc(.12s * var(--site-motion,1)) ease,box-shadow calc(.12s * var(--site-motion,1)) ease,background calc(.12s * var(--site-motion,1)) ease;padding:0 16px}
+  .btn:active{transform:scale(.985)}
+  .btn.primary{background:var(--ink);color:#fff;box-shadow:0 10px 20px rgba(29,27,24,.18)}
+  .btn.accent{background:var(--accent);color:var(--site-on-accent);box-shadow:0 10px 20px rgba(255,90,60,.24)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn.small{min-height:44px;font-size:14px;border-radius:calc(var(--site-radius,22px) * .55)}
+  .poster .btn.ghost{color:#fff;border-color:rgba(255,255,255,.32)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--site-radius,22px);padding:calc(20px * var(--site-space,1));box-shadow:var(--shadow)}
+  .foot{font-size:12px;line-height:1.6;color:var(--muted);text-align:center;margin:18px 0 0}
+  .quiz-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .icon-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:17px;cursor:pointer;color:var(--ink);display:grid;place-items:center;flex:none}
+  .meta{font-size:12.5px;color:var(--muted);letter-spacing:.3px}
+  .spacer{flex:1}
+  .progress{height:6px;background:#e9e2d4;border-radius:99px;overflow:hidden;margin-bottom:18px}
+  .progress > i{display:block;height:100%;width:0;background:var(--ink);border-radius:99px;transition:width calc(.3s * var(--site-motion,1)) ease}
+  .qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--site-radius,22px);padding:calc(22px * var(--site-space,1)) calc(18px * var(--site-space,1));box-shadow:var(--shadow)}
+  .qindex{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--accent);letter-spacing:1px;margin:0 0 10px}
+  .qtext{font-size:calc(21px * var(--site-type,1));line-height:1.48;letter-spacing:-.3px;margin:0 0 20px;font-weight:650}
+  .options{display:flex;flex-direction:column;gap:10px}
+  .option{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:15px 14px;border-radius:calc(var(--site-radius,22px) * .72);border:1.5px solid var(--line);background:#fff;font:inherit;font-size:calc(15px * var(--site-type,1));line-height:1.45;cursor:pointer;transition:border-color calc(.12s * var(--site-motion,1)) ease,background calc(.12s * var(--site-motion,1)) ease,transform calc(.12s * var(--site-motion,1)) ease;color:var(--ink)}
+  .option:active{transform:scale(.99)}
+  .option .key{width:26px;height:26px;border-radius:50%;background:#f2ece0;display:grid;place-items:center;font-size:11.5px;color:var(--muted);flex:none;font-weight:600}
+  .option.picked{border-color:var(--ink);background:#fff8ef}
+  .option.picked .key{background:var(--ink);color:#fff}
+  .hint{font-size:12px;color:var(--muted);text-align:center;margin:16px 0 0}
+  .input{width:100%;min-height:52px;border-radius:14px;border:1.5px solid var(--line);background:#fff;padding:0 16px;font:inherit;font-size:16px;color:var(--ink)}
+  .code-entry{letter-spacing:6px;text-align:center;font-family:ui-monospace,Menlo,monospace;font-size:22px;text-transform:uppercase}
+  .code-input{min-height:96px;padding:12px 14px;resize:vertical;font-size:13px;line-height:1.55;font-family:ui-monospace,Menlo,monospace;letter-spacing:0}
+  .word-inputs{display:flex;flex-direction:column;gap:10px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:calc(var(--site-radius,22px) * .72);padding:14px 10px;text-align:center}
+  .stat b{display:block;font-size:26px;line-height:1.1;font-family:"Songti SC","STSong",Georgia,serif}
+  .stat b small{font-size:12px;font-family:inherit;color:var(--muted)}
+  .stat span{display:block;margin-top:5px;font-size:11px;color:var(--muted)}
+  .report-stack{display:flex;flex-direction:column;gap:12px}
+  .radar-wrap{padding:14px 8px 8px}
+  .radar{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:14px;justify-content:center;margin:0 0 4px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .dot.self{background:#ff5a3c}
+  .dot.them{background:#2f6bff}
+  .callout{background:#1d1b18;color:#fff;border-color:#1d1b18}
+  .callout .eyebrow{color:rgba(255,255,255,.55)}
+  .callout h3{font-size:19px;line-height:1.4;margin:0 0 14px}
+  .compare{display:flex;align-items:center;gap:12px}
+  .compare > div{flex:1;background:rgba(255,255,255,.07);border-radius:14px;padding:12px;text-align:center}
+  .compare b{display:block;font-size:28px;line-height:1.1;font-family:"Songti SC","STSong",Georgia,serif}
+  .compare span{font-size:11px;color:rgba(255,255,255,.62)}
+  .arrow{flex:none;color:rgba(255,255,255,.45);font-size:18px}
+  .callout .sub{color:rgba(255,255,255,.74);margin:14px 0 0}
+  .gap-row{display:grid;grid-template-columns:64px auto 1fr;gap:10px;align-items:center;padding:11px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+  .gap-row:last-child{border-bottom:0;padding-bottom:0}
+  .gap-row .name{color:var(--muted);font-size:12.5px}
+  .gap-row .nums{font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap}
+  .gap-row em{font-style:normal;color:var(--accent);font-size:12px;text-align:right}
+  .labels{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .labels > div{background:#f5efe3;border-radius:calc(var(--site-radius,22px) * .62);padding:14px}
+  .labels span{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
+  .labels b{font-size:17px;line-height:1.3;display:block}
+  .words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 0 2px}
+  .word{padding:7px 12px;border-radius:99px;background:#f2ece0;line-height:1}
+  .word:nth-child(3n+1){color:#b8422b;background:#ffece7}
+  .word:nth-child(3n+2){color:#2f5fff;background:#eaf0ff}
+  .poster{background:linear-gradient(150deg,#23201c,#37312a);color:#fff;border-radius:var(--site-radius,22px);padding:calc(22px * var(--site-space,1));box-shadow:0 18px 40px rgba(30,24,16,.18)}
+  .poster-kicker{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.55);margin:0 0 8px}
+  .poster-code{font-family:ui-monospace,Menlo,monospace;font-size:30px;letter-spacing:7px;padding:14px 12px 14px 18px;border:1px dashed rgba(255,255,255,.25);border-radius:16px;text-align:center;background:rgba(255,255,255,.06);margin-bottom:14px;word-break:break-all}
+  .poster-tip{font-size:13px;line-height:1.7;color:rgba(255,255,255,.72);margin:0 0 16px}
+  .poster .stack{gap:8px}
+  .code-box{font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6;background:#f7f2e7;border:1px dashed var(--line);border-radius:14px;padding:12px 14px;word-break:break-all;margin:10px 0 14px;color:#4f483e}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
+  .tag{padding:6px 10px;border-radius:99px;background:#eef3ff;color:#2f5fff;font-size:12px;font-weight:600}
+  .done-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:99px;background:#e9f8e5;color:#2e7a24;font-size:11.5px;font-weight:600;margin-bottom:16px}
+  .disclaimer{font-size:11px;line-height:1.7;color:var(--muted);text-align:center;margin-top:20px}
+  button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+  #toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,16px);background:#1d1b18;color:#fff;padding:11px 18px;border-radius:99px;font-size:13.5px;opacity:0;pointer-events:none;transition:calc(.22s * var(--site-motion,1)) ease;z-index:99;max-width:86vw;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.2)}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+  @media (max-width:360px){
+    .face{width:104px;height:104px;font-size:11px}
+    .brand{font-size:32px}
+    .qtext{font-size:19px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="padding:24px;text-align:center">这个测试需要启用 JavaScript。</p></noscript>
+
+<script>
+'use strict';
+
+const IS_WEB = location.protocol === 'http:' || location.protocol === 'https:';
+const PAGE_URL = IS_WEB ? location.origin + location.pathname : '';
+
+const DIMS = [
+  { name:'社交启动', short:'社交', high:'主动破冰', low:'安静观察', highLabel:'社交悍匪', lowLabel:'人形背景板' },
+  { name:'情绪外显', short:'情绪', high:'情绪透明', low:'情绪内敛', highLabel:'情绪裸奔者', lowLabel:'情绪保险柜' },
+  { name:'计划性',   short:'计划', high:'计划控',   low:'随缘派',   highLabel:'行程表成精', lowLabel:'摆烂漂流瓶' },
+  { name:'边界感',   short:'边界', high:'热络黏人', low:'独立有距', highLabel:'社交牛皮糖', lowLabel:'人间勿扰模式' },
+  { name:'表达直接', short:'表达', high:'直球选手', low:'委婉缓冲', highLabel:'说话不带刹车', lowLabel:'和稀泥冠军' },
+  { name:'冒险精神', short:'冒险', high:'尝鲜冒险', low:'稳妥谨慎', highLabel:'踩雷专业户', lowLabel:'舒适区钉子户' },
+  { name:'共情照顾', short:'共情', high:'照顾型',   low:'省电型',   highLabel:'免费情绪客服', lowLabel:'共情额度已用完' },
+  { name:'玩心幽默', short:'玩心', high:'玩梗大师', low:'正经担当', highLabel:'烂梗复读机', lowLabel:'气氛终结者' }
+];
+
+const QUESTIONS = [
+  {
+    dim:0,
+    text:'被拉进一个全是陌生人的饭局，你的第一反应是？',
+    judge:'TA 被拉进一个全是陌生人的饭局，TA 的第一反应是？',
+    options:[
+      { t:'主动破冰，三分钟混成全场熟人', s:3 },
+      { t:'先观察，等别人来搭话', s:2 },
+      { t:'全程黏着唯一认识的人', s:1 },
+      { t:'假装看手机，盘算怎么提前溜', s:0 }
+    ]
+  },
+  {
+    dim:0,
+    text:'群里有人喊周末出去玩，你通常？',
+    judge:'群里有人喊周末出去玩，TA 通常？',
+    options:[
+      { t:'已读不回，周末只想人间蒸发', s:0 },
+      { t:'第一个报名，还要拉更多人下水', s:3 },
+      { t:'看有没有熟人，有才去', s:2 },
+      { t:'默默围观，最后装死不去', s:1 }
+    ]
+  },
+  {
+    dim:1,
+    text:'被人当众甩锅，你的第一反应是？',
+    judge:'TA 被人当众甩锅，第一反应是？',
+    options:[
+      { t:'脸上挂不住，当场就怼回去', s:3 },
+      { t:'语气变冷，但还能忍住', s:2 },
+      { t:'表面说没事，心里已经演完一部剧', s:1 },
+      { t:'面无表情，回家再慢慢消化', s:0 }
+    ]
+  },
+  {
+    dim:1,
+    text:'收到意外惊喜时，你的表情管理？',
+    judge:'收到意外惊喜时，TA 的表情管理？',
+    options:[
+      { t:'内心放烟花，脸上像在开会', s:0 },
+      { t:'尖叫到隔壁以为出事', s:3 },
+      { t:'开心但努力端着', s:1 },
+      { t:'笑得很明显，反复说谢谢', s:2 }
+    ]
+  },
+  {
+    dim:2,
+    text:'出去玩，你的行程表长什么样？',
+    judge:'出去玩，TA 的行程表长什么样？',
+    options:[
+      { t:'只订机票酒店，其他到了再说', s:1 },
+      { t:'精确到分钟，连上厕所都留了缓冲', s:3 },
+      { t:'有大框架，细节随机', s:2 },
+      { t:'到了当地才开始查「附近有什么」', s:0 }
+    ]
+  },
+  {
+    dim:2,
+    text:'约好下午三点，你通常几点出现？',
+    judge:'约好下午三点，TA 通常几点出现？',
+    options:[
+      { t:'三点半才出门，时间只是建议', s:0 },
+      { t:'两点五十到，还会催别人', s:3 },
+      { t:'三点整，偶尔踩点', s:2 },
+      { t:'三点二十，路上一直说马上到', s:1 }
+    ]
+  },
+  {
+    dim:3,
+    text:'朋友三天没回你消息，你会？',
+    judge:'你三天没回 TA 消息，TA 会？',
+    options:[
+      { t:'完全无所谓，正好清静', s:0 },
+      { t:'连发五条，再打个语音', s:3 },
+      { t:'等对方回，绝不先低头', s:1 },
+      { t:'心里在意，隔天再试探一次', s:2 }
+    ]
+  },
+  {
+    dim:3,
+    text:'你能接受多久不联系朋友？',
+    judge:'TA 能接受多久不联系朋友？',
+    options:[
+      { t:'有事联系，没事各过各的', s:1 },
+      { t:'一天不聊就浑身难受', s:3 },
+      { t:'半年不联系，见面照样熟', s:0 },
+      { t:'每周得约一次，不然感情会淡', s:2 }
+    ]
+  },
+  {
+    dim:4,
+    text:'朋友穿了件很灾难的新衣服问你怎么样，你会？',
+    judge:'你穿了件很灾难的新衣服问 TA 怎么样，TA 会？',
+    options:[
+      { t:'先夸两句，再委婉劝退', s:2 },
+      { t:'直接说「退了吧，不适合你」', s:3 },
+      { t:'违心说好看，回家替 TA 尴尬', s:0 },
+      { t:'说「挺有勇气的」，让 TA 自己品', s:1 }
+    ]
+  },
+  {
+    dim:4,
+    text:'开会时同事的方案明显有问题，你会？',
+    judge:'开会时 TA 发现同事的方案明显有问题，TA 会？',
+    options:[
+      { t:'懒得管，反正背锅的不是我', s:0 },
+      { t:'当场一条条怼回去', s:3 },
+      { t:'会后私下提醒，避免撕破脸', s:1 },
+      { t:'先夸两句，再「不过我觉得」', s:2 }
+    ]
+  },
+  {
+    dim:5,
+    text:'菜单上有道你从没见过的怪菜，你会？',
+    judge:'菜单上有道 TA 从没见过的怪菜，TA 会？',
+    options:[
+      { t:'看都不看，点老三样', s:0 },
+      { t:'必点，难吃也算体验', s:3 },
+      { t:'先问服务员这到底是什么', s:2 },
+      { t:'等别人点，我再蹭一口', s:1 }
+    ]
+  },
+  {
+    dim:5,
+    text:'有个机会让你裸辞换城市，你会？',
+    judge:'有个机会让 TA 裸辞换城市，TA 会？',
+    options:[
+      { t:'纠结到机会过期', s:1 },
+      { t:'当场答应，兴奋大过害怕', s:3 },
+      { t:'算完账再决定，大概率去', s:2 },
+      { t:'想都不想，稳定最重要', s:0 }
+    ]
+  },
+  {
+    dim:6,
+    text:'聚会上有人被晾在一边，你会？',
+    judge:'聚会上有人被晾在一边，TA 会？',
+    options:[
+      { t:'完全没注意，聊得正嗨', s:0 },
+      { t:'主动把话题抛给 TA', s:3 },
+      { t:'看到了，但不知道怎么救场', s:1 },
+      { t:'找机会接一句，让 TA 能插进来', s:2 }
+    ]
+  },
+  {
+    dim:6,
+    text:'凌晨一点朋友发「在吗」，你通常？',
+    judge:'凌晨一点你给 TA 发「在吗」，TA 通常？',
+    options:[
+      { t:'装睡，怕被倒两小时情绪垃圾', s:0 },
+      { t:'秒回，问怎么了', s:3 },
+      { t:'第二天早上再回「刚看到」', s:1 },
+      { t:'看到就回，陪聊到 TA 睡着', s:2 }
+    ]
+  },
+  {
+    dim:7,
+    text:'群里有人发了个很好笑的梗，你会？',
+    judge:'群里有人发了个很好笑的梗，TA 会？',
+    options:[
+      { t:'默默点赞，心里笑到打鸣', s:1 },
+      { t:'立刻接梗，还能再抛一个', s:3 },
+      { t:'觉得无聊，继续潜水', s:0 },
+      { t:'跟一句，但不敢太放飞', s:2 }
+    ]
+  },
+  {
+    dim:7,
+    text:'你的表情包库存是什么水平？',
+    judge:'TA 的表情包库存是什么水平？',
+    options:[
+      { t:'基本不用，靠文字硬聊', s:0 },
+      { t:'上千张，斗图没输过', s:3 },
+      { t:'翻半天找不到一张合适的', s:1 },
+      { t:'几十张，够用就行', s:2 }
+    ]
+  }
+];
+
+const LS_SELF = 'misread.self.v1';
+const LS_FRIENDS = 'misread.friends.v1.';
+const app = document.getElementById('app');
+
+const state = {
+  screen:'home',
+  mode:'self',
+  idx:0,
+  answers:Array(16).fill(null),
+  words:['', '', ''],
+  judgeCode:'',
+  judgeResult:null,
+  locked:false,
+  pickToken:0,
+  self:null,
+  friends:[]
+};
+
+/* ---------- storage ---------- */
+
+function saveSelf(data){
+  try{ localStorage.setItem(LS_SELF, JSON.stringify(data)); }catch(e){}
+}
+function loadSelf(){
+  try{
+    const data = JSON.parse(localStorage.getItem(LS_SELF));
+    if(!data || !data.code || !Array.isArray(data.answers) || data.answers.length !== 16) return null;
+    return data;
+  }catch(e){ return null; }
+}
+function saveFriends(code, list){
+  try{ localStorage.setItem(LS_FRIENDS + code, JSON.stringify(list)); }catch(e){}
+}
+function loadFriends(code){
+  try{
+    const list = JSON.parse(localStorage.getItem(LS_FRIENDS + code));
+    return Array.isArray(list) ? list : [];
+  }catch(e){ return []; }
+}
+
+/* ---------- scoring ---------- */
+
+function scoreAnswers(answers){
+  const sums = Array(8).fill(0);
+  const counts = Array(8).fill(0);
+  answers.forEach((optIdx, qi) => {
+    const q = QUESTIONS[qi];
+    if(!q || optIdx == null) return;
+    const opt = q.options[optIdx];
+    if(!opt) return;
+    sums[q.dim] += opt.s;
+    counts[q.dim] += 1;
+  });
+  return sums.map((sum, i) => counts[i] ? Math.round(sum / (counts[i] * 3) * 100) : 50);
+}
+
+function avgScores(list){
+  if(!list.length) return null;
+  return Array(8).fill(0).map((_, i) => {
+    return Math.round(list.reduce((sum, scores) => sum + scores[i], 0) / list.length);
+  });
+}
+
+function topDims(scores, n){
+  return scores
+    .map((v, i) => ({ i, v, dist: Math.abs(v - 50) }))
+    .sort((a, b) => b.dist - a.dist)
+    .slice(0, n);
+}
+
+function labelFor(scores){
+  const top = topDims(scores, 1)[0];
+  if(!top || top.dist < 10) return '查无此人';
+  return scores[top.i] >= 50 ? DIMS[top.i].highLabel : DIMS[top.i].lowLabel;
+}
+
+function analyze(selfScores, friendScores){
+  const gaps = selfScores.map((s, i) => ({
+    i,
+    self: s,
+    friend: friendScores[i],
+    gap: friendScores[i] - s
+  }));
+  const top = gaps.slice().sort((a, b) => Math.abs(b.gap) - Math.abs(a.gap));
+  const meanAbs = gaps.reduce((sum, g) => sum + Math.abs(g.gap), 0) / gaps.length;
+  return {
+    gaps,
+    top,
+    max: top[0],
+    maxAbs: Math.abs(top[0].gap),
+    know: Math.max(0, Math.min(100, Math.round(100 - meanAbs)))
+  };
+}
+
+function misreadSentence(g){
+  const d = DIMS[g.i];
+  const abs = Math.abs(g.gap);
+  if(abs < 6){
+    return '在「' + d.name + '」上，朋友眼中的你和自评基本一致——这块你装得还挺像。';
+  }
+  const direction = g.gap > 0 ? d.highLabel : d.lowLabel;
+  if(abs >= 25){
+    return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——这已经不是误读，是两个人。他们觉得你更「' + direction + '」。';
+  }
+  if(abs >= 12){
+    return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——他们看到的你，和你以为的差挺多。在朋友眼里，你更「' + direction + '」。';
+  }
+  return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——有点偏差，但还不算离谱。他们觉得你更「' + direction + '」。';
+}
+
+function collectWords(friends){
+  const map = new Map();
+  friends.forEach(f => {
+    (f.words || []).forEach(w => {
+      if(w) map.set(w, (map.get(w) || 0) + 1);
+    });
+  });
+  return Array.from(map.entries()).sort((a, b) => b[1] - a[1]).slice(0, 14);
+}
+
+/* ---------- helpers ---------- */
+
+function esc(value){
+  return String(value).replace(/[&<>"']/g, ch => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[ch]));
+}
+
+function randomCode(n){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let out = '';
+  for(let i = 0; i < n; i++) out += chars[Math.floor(Math.random() * chars.length)];
+  return out;
+}
+
+function b64EncodeUnicode(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function b64DecodeUnicode(str){
+  let s = str.replace(/-/g, '+').replace(/_/g, '/');
+  while(s.length % 4) s += '=';
+  const bin = atob(s);
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+let toastTimer = null;
+function toast(message){
+  let el = document.getElementById('toast');
+  if(!el){
+    el = document.createElement('div');
+    el.id = 'toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = message;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+async function copyText(text, message){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+    }else{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    toast(message || '已复制');
+  }catch(e){
+    toast('复制失败，请长按手动复制');
+  }
+}
+
+function copyEl(id, message){
+  const el = document.getElementById(id);
+  if(el) copyText(el.innerText, message);
+}
+
+function copyInvite(){
+  if(!state.self) return;
+  const where = IS_WEB ? '打开这个链接：' + PAGE_URL : '打开我发你的 HTML 文件';
+  const text = '我做了个「人设偏差报告」，想看看你眼中的我是什么样。' + where + '，选「帮好友评价」，输入我的好友码 ' + state.self.code + '，16 道题就好。';
+  copyText(text, '邀请文案已复制');
+}
+
+/* ---------- radar ---------- */
+
+function radarSVG(selfScores, friendScores, opts){
+  opts = opts || {};
+  const c1 = opts.c1 || '#ff5a3c';
+  const f1 = opts.f1 || 'rgba(255,90,60,.16)';
+  const cx = 180, cy = 175, R = 112;
+  const angles = Array.from({ length: 8 }, (_, i) => -Math.PI / 2 + i * Math.PI / 4);
+
+  const point = (i, value) => {
+    const r = R * Math.max(0, Math.min(100, value)) / 100;
+    return [cx + Math.cos(angles[i]) * r, cy + Math.sin(angles[i]) * r];
+  };
+  const polygon = scores => scores.map((v, i) => point(i, v).join(',')).join(' ');
+  const ring = value => {
+    const r = R * value / 100;
+    return angles.map(a => (cx + Math.cos(a) * r) + ',' + (cy + Math.sin(a) * r)).join(' ');
+  };
+
+  const grid = [25, 50, 75, 100]
+    .map(v => '<polygon points="' + ring(v) + '" fill="none" stroke="#e7dfd1" stroke-width="1"/>')
+    .join('');
+  const axes = angles
+    .map(a => '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + Math.cos(a) * R) + '" y2="' + (cy + Math.sin(a) * R) + '" stroke="#e7dfd1" stroke-width="1"/>')
+    .join('');
+  const labels = angles.map((a, i) => {
+    const lr = R + 24;
+    const x = cx + Math.cos(a) * lr;
+    const y = cy + Math.sin(a) * lr;
+    const cos = Math.cos(a);
+    const anchor = cos > 0.25 ? 'start' : cos < -0.25 ? 'end' : 'middle';
+    const dy = Math.sin(a) > 0.6 ? 12 : Math.sin(a) < -0.6 ? -4 : 4;
+    return '<text x="' + x + '" y="' + (y + dy) + '" text-anchor="' + anchor + '" fill="#857d70" font-size="11.5">' + DIMS[i].short + '</text>';
+  }).join('');
+  const friendPoly = friendScores
+    ? '<polygon points="' + polygon(friendScores) + '" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>'
+    : '';
+  const friendDots = friendScores
+    ? friendScores.map((v, i) => {
+        const p = point(i, v);
+        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#2f6bff"/>';
+      }).join('')
+    : '';
+  const selfDots = selfScores.map((v, i) => {
+    const p = point(i, v);
+    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.2" fill="' + c1 + '"/>';
+  }).join('');
+
+  return '<svg viewBox="-34 -24 428 400" class="radar" role="img" aria-label="人设雷达图">'
+    + grid + axes
+    + friendPoly
+    + '<polygon points="' + polygon(selfScores) + '" fill="' + f1 + '" stroke="' + c1 + '" stroke-width="2.5" stroke-linejoin="round"/>'
+    + selfDots + friendDots
+    + labels
+    + '</svg>';
+}
+
+/* ---------- navigation ---------- */
+
+function go(screen){
+  state.screen = screen;
+  switch(screen){
+    case 'home': renderHome(); break;
+    case 'quiz': renderQuiz(); break;
+    case 'words': renderWords(); break;
+    case 'judgeDone': renderJudgeDone(); break;
+    case 'report': renderReport(); break;
+    case 'judgeCode': renderJudgeCode(); break;
+    case 'importCode': renderImportCode(); break;
+    default: renderHome();
+  }
+  window.scrollTo(0, 0);
+}
+
+/* ---------- home ---------- */
+
+function renderHome(){
+  const hasSelf = !!state.self;
+  const friendCount = state.friends.length;
+  app.innerHTML = `
+    <section class="screen">
+      <div class="badge">16 题 · 约 3 分钟 · 娱乐向</div>
+      <h1 class="brand">你被误读了吗？</h1>
+      <p class="lede">你眼中的自己，和朋友眼中的你，<br>可能根本不是同一个人。</p>
+      <div class="hero-art" aria-hidden="true">
+        <div class="face you"><span>你眼中的<br>自己</span></div>
+        <div class="face them"><span>朋友眼中的<br>你</span></div>
+      </div>
+      <div class="stack">
+        <button class="btn primary" onclick="${hasSelf ? 'openReport()' : 'startSelf()'}">${hasSelf ? '查看我的人设偏差报告' : '开始测试'}</button>
+        ${hasSelf ? `<p class="foot" style="margin:0">好友码 <b>${state.self.code}</b> · 已收到 ${friendCount} 位评价</p>` : ''}
+        ${hasSelf ? '<button class="btn ghost" onclick="restartSelf()">重新测一次</button>' : ''}
+        <div class="or"><span>或</span></div>
+        <button class="btn ghost" onclick="go('judgeCode')">帮好友评价</button>
+        <button class="btn ghost" onclick="go('importCode')">我有回传码</button>
+      </div>
+      <p class="foot">数据只保存在你的浏览器里，不会上传。${IS_WEB ? '' : '<br>微信内可能无法直接运行，建议用系统浏览器打开。'}</p>
+    </section>`;
+}
+
+/* ---------- quiz ---------- */
+
+function startSelf(){
+  state.mode = 'self';
+  state.idx = 0;
+  state.answers = Array(16).fill(null);
+  state.locked = false;
+  state.pickToken++;
+  go('quiz');
+}
+
+function renderQuiz(){
+  const q = QUESTIONS[state.idx];
+  const text = state.mode === 'self' ? q.text : q.judge;
+  const pct = Math.round(state.idx / QUESTIONS.length * 100);
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="quizBack()" aria-label="返回">←</button>
+        <div class="meta">${state.mode === 'self' ? '自评' : '评价好友'} · ${state.idx + 1} / ${QUESTIONS.length}</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="progress"><i style="width:${pct}%"></i></div>
+      <div class="qcard">
+        <p class="qindex">Q${String(state.idx + 1).padStart(2, '0')}</p>
+        <h2 class="qtext">${text}</h2>
+        <div class="options">
+          ${q.options.map((opt, i) => `
+            <button class="option ${state.answers[state.idx] === i ? 'picked' : ''}" onclick="pick(${i})">
+              <span class="key">${'ABCD'[i]}</span>
+              <span>${opt.t}</span>
+            </button>`).join('')}
+        </div>
+      </div>
+      <p class="hint">别装，选你真正会做的那个。</p>
+    </section>`;
+}
+
+function pick(index){
+  if(state.locked) return;
+  state.locked = true;
+  state.answers[state.idx] = index;
+  state.pickToken++;
+  const token = state.pickToken;
+
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.classList.toggle('picked', i === index);
+  });
+  const bar = document.querySelector('.progress > i');
+  if(bar) bar.style.width = Math.round((state.idx + 1) / QUESTIONS.length * 100) + '%';
+
+  setTimeout(() => {
+    if(token !== state.pickToken) return;
+    state.locked = false;
+    if(state.idx < QUESTIONS.length - 1){
+      state.idx++;
+      renderQuiz();
+    }else{
+      finishQuiz();
+    }
+  }, 200);
+}
+
+function quizBack(){
+  state.pickToken++;
+  state.locked = false;
+  if(state.idx > 0){
+    state.idx--;
+    renderQuiz();
+  }else{
+    go('home');
+  }
+}
+
+function finishQuiz(){
+  if(state.answers.some(a => a === null)){
+    toast('还有题没答完');
+    return;
+  }
+  if(state.mode === 'self'){
+    const code = randomCode(6);
+    state.self = {
+      code,
+      answers: state.answers.slice(),
+      scores: scoreAnswers(state.answers),
+      createdAt: Date.now()
+    };
+    state.friends = [];
+    saveSelf(state.self);
+    go('report');
+  }else{
+    go('words');
+  }
+}
+
+/* ---------- judge flow ---------- */
+
+function renderJudgeCode(){
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="go('home')" aria-label="返回">←</button>
+        <div class="meta">帮好友评价</div>
+        <div class="spacer"></div>
+      </div>
+      <h1 class="brand report">输入 TA 的<br>6 位好友码</h1>
+      <p class="lede">好友码在 TA 的报告页上。你会按同一套题评价 TA——按真实印象来，不用留情面。</p>
+      <input class="input code-entry" id="judgeCodeInput" maxlength="6" placeholder="例如 A7K2Q9" aria-label="好友码" autocapitalize="characters" autocomplete="off" spellcheck="false">
+      <button class="btn primary" style="margin-top:14px" onclick="beginJudge()">开始评价</button>
+      <p class="foot">你只在本机作答，评价会打包成回传码交给 TA。</p>
+    </section>`;
+}
+
+function beginJudge(){
+  const el = document.getElementById('judgeCodeInput');
+  const code = (el.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if(code.length !== 6){
+    toast('请输入 6 位好友码');
+    return;
+  }
+  state.mode = 'judge';
+  state.idx = 0;
+  state.answers = Array(16).fill(null);
+  state.words = ['', '', ''];
+  state.judgeCode = code;
+  state.judgeResult = null;
+  state.locked = false;
+  state.pickToken++;
+  go('quiz');
+}
+
+function renderWords(){
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="go('home')" aria-label="返回">←</button>
+        <div class="meta">最后一步</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="qcard">
+        <p class="qindex">TA 的关键词</p>
+        <h2 class="qtext">用三个词形容 TA</h2>
+        <p class="sub" style="margin:0 0 18px">写你真实想到的词，会出现在 TA 的报告里。不填也可以。</p>
+        <div class="word-inputs">
+          ${[0, 1, 2].map(i => `<input class="input" id="w${i}" maxlength="6" placeholder="词 ${i + 1}" aria-label="关键词 ${i + 1}" value="${esc(state.words[i] || '')}">`).join('')}
+        </div>
+        <button class="btn primary" style="margin-top:18px" onclick="submitJudge()">生成回传码</button>
+      </div>
+      <p class="hint">回传码只包含答案和关键词，不包含你的身份信息。</p>
+    </section>`;
+}
+
+function submitJudge(){
+  if(state.answers.some(a => a === null)){
+    toast('还有题没答完');
+    return;
+  }
+  const words = [0, 1, 2]
+    .map(i => {
+      const el = document.getElementById('w' + i);
+      return (el ? el.value : '').trim().replace(/[\/\\.\\,，、]/g, '').slice(0, 6);
+    })
+    .filter(Boolean);
+  state.words = words;
+  const scores = scoreAnswers(state.answers);
+  const digits = state.answers.join('');
+  const code = 'P1.' + state.judgeCode + '.' + digits + '.' + b64EncodeUnicode(words.join('/'));
+  state.judgeResult = { scores, code, words };
+  go('judgeDone');
+}
+
+function renderJudgeDone(){
+  const result = state.judgeResult;
+  if(!result){
+    go('home');
+    return;
+  }
+  const label = labelFor(result.scores);
+  const tags = topDims(result.scores, 3)
+    .map(d => `<span class="tag">${DIMS[d.i].short} · ${result.scores[d.i] >= 50 ? DIMS[d.i].highLabel : DIMS[d.i].lowLabel}</span>`)
+    .join('');
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="go('home')" aria-label="返回">←</button>
+        <div class="meta">评价完成</div>
+        <div class="spacer"></div>
+      </div>
+      <div class="done-badge">✓ 已完成 16 题</div>
+      <p class="eyebrow">你眼中的 TA</p>
+      <h1 class="brand report">「${label}」</h1>
+      <div class="tags">${tags}</div>
+      <div class="card radar-wrap">
+        <div class="legend"><span><i class="dot them"></i>你眼中的 TA</span></div>
+        ${radarSVG(result.scores, null, { c1:'#2f6bff', f1:'rgba(47,107,255,.14)' })}
+      </div>
+      <div class="card" style="margin-top:12px">
+        <p class="eyebrow">回传码</p>
+        <h3 style="font-size:18px;line-height:1.45;margin:0">把这段码发给 TA</h3>
+        <p class="sub" style="margin:6px 0 0">TA 在自己的报告页粘贴，就能看到你们眼中的 TA 差多少。</p>
+        <div class="code-box" id="returnCode">${esc(result.code)}</div>
+        <button class="btn accent" onclick="copyEl('returnCode','回传码已复制')">复制回传码</button>
+      </div>
+      <div class="stack" style="margin-top:12px">
+        <button class="btn ghost" onclick="go('home')">回到首页</button>
+      </div>
+      <p class="disclaimer">谢谢你认真评价 TA。娱乐向小测试，别太当真。</p>
+    </section>`;
+}
+
+/* ---------- import ---------- */
+
+function renderImportCode(){
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="go('home')" aria-label="返回">←</button>
+        <div class="meta">导入好友评价</div>
+        <div class="spacer"></div>
+      </div>
+      <h1 class="brand report">粘贴好友的<br>回传码</h1>
+      <p class="lede">好友测完后会得到一段以 P1 开头的码，粘贴到这里，就能看到 TA 眼中的你。</p>
+      <textarea class="input code-input" id="importInput" aria-label="好友回传码" placeholder="P1.XXXXXX.0123012301230123..."></textarea>
+      <button class="btn primary" style="margin-top:14px" onclick="importFriend()">导入评价</button>
+      <p class="foot">回传码只在本机解析，不会上传。</p>
+    </section>`;
+}
+
+function parseFriendCode(raw){
+  const parts = String(raw || '').trim().split('.');
+  if(parts.length < 3 || parts[0] !== 'P1') return null;
+  const selfCode = parts[1];
+  const digits = parts[2];
+  if(!/^[A-Z0-9]{6}$/.test(selfCode)) return null;
+  if(!/^[0-3]{16}$/.test(digits)) return null;
+  const wordsRaw = parts.slice(3).join('.');
+  let words = [];
+  if(wordsRaw){
+    let decoded = '';
+    try{
+      decoded = wordsRaw.indexOf('%') >= 0 ? decodeURIComponent(wordsRaw) : b64DecodeUnicode(wordsRaw);
+    }catch(e){
+      decoded = '';
+    }
+    words = decoded.split('/').filter(Boolean).slice(0, 3);
+  }
+  return {
+    selfCode,
+    answers: digits.split('').map(Number),
+    words
+  };
+}
+
+function importFriend(){
+  const el = document.getElementById('importInput');
+  const raw = el ? el.value : '';
+  if(!state.self){
+    toast('先完成自己的测试，再导入好友评价');
+    return;
+  }
+  const parsed = parseFriendCode(raw);
+  if(!parsed){
+    toast('回传码格式不对，请整段粘贴');
+    return;
+  }
+  if(parsed.selfCode !== state.self.code){
+    toast('这个回传码不是发给你的');
+    return;
+  }
+  const id = parsed.answers.join('') + '|' + parsed.words.join('/');
+  if(state.friends.some(f => f.id === id)){
+    toast('这条评价已经导入过了');
+    return;
+  }
+  state.friends.push({
+    answers: parsed.answers,
+    words: parsed.words,
+    scores: scoreAnswers(parsed.answers),
+    id,
+    ts: Date.now()
+  });
+  saveFriends(state.self.code, state.friends);
+  toast('导入成功');
+  go('report');
+}
+
+/* ---------- report ---------- */
+
+function renderReport(){
+  if(!state.self){
+    go('home');
+    return;
+  }
+  const selfScores = state.self.scores || scoreAnswers(state.self.answers);
+  const friendScores = state.friends.length
+    ? avgScores(state.friends.map(f => f.scores || scoreAnswers(f.answers)))
+    : null;
+  const selfLabel = labelFor(selfScores);
+  const friendLabel = friendScores ? labelFor(friendScores) : null;
+  const analysis = friendScores ? analyze(selfScores, friendScores) : null;
+  const words = collectWords(state.friends);
+  const title = friendScores
+    ? '朋友眼中的你，<br>是「' + friendLabel + '」'
+    : '你大概是<br>「' + selfLabel + '」';
+  const sub = state.friends.length
+    ? '已收到 ' + state.friends.length + ' 位好友的评价' + (state.friends.length < 3 ? '，再找几位会更准' : '')
+    : '还没有好友评价，先看看你的自画像。';
+
+  const statsHtml = `
+    <div class="stats">
+      <div class="stat"><b>${analysis ? analysis.know + '<small>%</small>' : '—'}</b><span>好友懂你</span></div>
+      <div class="stat"><b>${state.friends.length}<small> 位</small></b><span>已收到评价</span></div>
+      <div class="stat"><b>${analysis ? analysis.maxAbs + '<small> 分</small>' : '—'}</b><span>最大偏差</span></div>
+    </div>`;
+
+  const radarHtml = `
+    <div class="card radar-wrap">
+      <div class="legend">
+        <span><i class="dot self"></i>你眼中的自己</span>
+        ${friendScores ? '<span><i class="dot them"></i>朋友眼中的你</span>' : ''}
+      </div>
+      ${radarSVG(selfScores, friendScores)}
+    </div>`;
+
+  const misreadHtml = analysis ? `
+    <div class="card callout">
+      <p class="eyebrow">最大误读</p>
+      <h3>${DIMS[analysis.max.i].name}</h3>
+      <div class="compare">
+        <div><b>${analysis.max.self}</b><span>你自评</span></div>
+        <div class="arrow">→</div>
+        <div><b>${analysis.max.friend}</b><span>朋友看你</span></div>
+      </div>
+      <p class="sub">${misreadSentence(analysis.max)}</p>
+    </div>` : `
+    <div class="card">
+      <p class="eyebrow">还差一步</p>
+      <h3 style="font-size:19px;line-height:1.45;margin:0 0 8px">好友眼中的你，还没到货</h3>
+      <p class="sub">把下面的 6 位好友码发给朋友，让 TA 评价你；收到回传码后，这里会出现双雷达对比。</p>
+    </div>`;
+
+  const otherHtml = analysis && analysis.top.length > 1 ? `
+    <div class="card">
+      <p class="eyebrow">其他偏差</p>
+      ${analysis.top.slice(1, 4).map(g => `
+        <div class="gap-row">
+          <span class="name">${DIMS[g.i].name}</span>
+          <span class="nums">${g.self} → ${g.friend}</span>
+          <em>${g.gap > 0 ? '更' + DIMS[g.i].highLabel : '更' + DIMS[g.i].lowLabel}</em>
+        </div>`).join('')}
+    </div>` : '';
+
+  const labelsHtml = `
+    <div class="card">
+      <p class="eyebrow">人设标签</p>
+      <div class="labels">
+        <div><span>你眼中的自己</span><b>${selfLabel}</b></div>
+        <div><span>朋友眼中的你</span><b>${friendLabel || '待解锁'}</b></div>
+      </div>
+      ${friendScores && friendLabel === selfLabel ? '<p class="sub" style="margin:12px 0 0">这次没跑偏，两边看到的是同一个人。</p>' : ''}
+    </div>`;
+
+  const wordsHtml = words.length ? `
+    <div class="card">
+      <p class="eyebrow">朋友用来形容你的词</p>
+      <div class="words">
+        ${words.map(([word, count]) => {
+          const size = Math.min(26, 14 + count * 3);
+          return `<span class="word" style="font-size:${size}px">${esc(word)}</span>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  const shareHtml = `
+    <div class="poster">
+      <p class="poster-kicker">我的好友码</p>
+      <div class="poster-code">${state.self.code}</div>
+      <p class="poster-tip">${IS_WEB ? '把链接发给朋友，让 TA 打开后选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。' : '把这份 HTML 文件发给朋友，让 TA 选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。'}</p>
+      <div class="stack">
+        <button class="btn accent small" onclick="copyText('${state.self.code}','好友码已复制')">复制好友码</button>
+        ${IS_WEB ? '<button class="btn ghost small" onclick="copyText(location.origin + location.pathname, \'链接已复制\')">复制链接</button>' : ''}
+        <button class="btn ghost small" onclick="copyInvite()">复制邀请文案</button>
+      </div>
+    </div>`;
+
+  const importHtml = `
+    <div class="card">
+      <p class="eyebrow">导入好友评价</p>
+      <h3 style="font-size:17px;line-height:1.45;margin:0 0 10px">粘贴好友的回传码</h3>
+      <textarea class="input code-input" id="importInput" aria-label="好友回传码" placeholder="P1.XXXXXX.0123012301230123..."></textarea>
+      <button class="btn primary" style="margin-top:12px" onclick="importFriend()">导入评价</button>
+    </div>`;
+
+  app.innerHTML = `
+    <section class="screen">
+      <div class="quiz-top">
+        <button class="icon-btn" onclick="go('home')" aria-label="返回首页">←</button>
+        <div class="meta">我的报告</div>
+        <div class="spacer"></div>
+      </div>
+      <header>
+        <p class="eyebrow">人设偏差报告</p>
+        <h1 class="brand report">${title}</h1>
+        <p class="lede">${sub}</p>
+      </header>
+      <div class="report-stack">
+        ${statsHtml}
+        ${radarHtml}
+        ${misreadHtml}
+        ${otherHtml}
+        ${labelsHtml}
+        ${wordsHtml}
+        ${shareHtml}
+        ${importHtml}
+        <button class="btn ghost" onclick="restartSelf()">重新测一次</button>
+      </div>
+      <p class="disclaimer">娱乐向小测试，不构成心理评估。所有数据只保存在本机浏览器，清除缓存或换设备会丢失。</p>
+    </section>`;
+}
+
+/* ---------- reset ---------- */
+
+function openReport(){
+  if(state.self) go('report');
+  else go('home');
+}
+
+function restartSelf(){
+  if(!confirm('重新测试会清空当前报告和已导入的好友评价，确定吗？')) return;
+  if(state.self){
+    try{ localStorage.removeItem(LS_FRIENDS + state.self.code); }catch(e){}
+  }
+  try{ localStorage.removeItem(LS_SELF); }catch(e){}
+  state.self = null;
+  state.friends = [];
+  state.idx = 0;
+  state.answers = Array(16).fill(null);
+  state.locked = false;
+  go('home');
+}
+
+/* ---------- init ---------- */
+
+function init(){
+  state.self = loadSelf();
+  if(state.self){
+    state.self.scores = scoreAnswers(state.self.answers);
+    state.friends = loadFriends(state.self.code).map(f => ({
+      ...f,
+      scores: scoreAnswers(f.answers)
+    }));
+  }
+  go('home');
+}
+
+init();
+</script>
+</body>
+</html>
