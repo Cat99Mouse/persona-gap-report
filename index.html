@@ -360,6 +360,7 @@ const state = {
   words:['', '', ''],
   judgeCode:'',
   judgeResult:null,
+  inviteCode:'',
   locked:false,
   pickToken:0,
   self:null,
@@ -537,10 +538,30 @@ function copyEl(id, message){
   if(el) copyText(el.innerText, message);
 }
 
+function inviteUrl(){
+  if(!state.self) return PAGE_URL;
+  return PAGE_URL + '?c=' + state.self.code;
+}
+
+function inviteCodeFromUrl(){
+  let code = '';
+  try{
+    const q = new URLSearchParams(location.search);
+    code = (q.get('c') || q.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  }catch(e){}
+  if(code.length !== 6){
+    const m = /(?:^|[#&?])(?:c|code)=([A-Za-z0-9]{6})/.exec(location.hash || '');
+    code = m ? m[1].toUpperCase() : '';
+  }
+  return code.length === 6 ? code : '';
+}
+
 function copyInvite(){
   if(!state.self) return;
-  const where = IS_WEB ? '打开这个链接：' + PAGE_URL : '打开我发你的 HTML 文件';
-  const text = '我做了个「人设偏差报告」，想看看你眼中的我是什么样。' + where + '，选「帮好友评价」，输入我的好友码 ' + state.self.code + '，16 道题就好。';
+  const where = IS_WEB
+    ? '点开这个链接直接开始评价我（好友码已经带上了，不用手输）：' + inviteUrl()
+    : '打开我发你的 HTML 文件，选「帮好友评价」，输入好友码 ' + state.self.code;
+  const text = '我做了个「人设偏差报告」，想看看你眼中的我是什么样。' + where + '，16 道题就好。';
   copyText(text, '邀请文案已复制');
 }
 
@@ -612,6 +633,7 @@ function go(screen){
     case 'judgeDone': renderJudgeDone(); break;
     case 'report': renderReport(); break;
     case 'judgeCode': renderJudgeCode(); break;
+    case 'invite': renderInvite(); break;
     case 'importCode': renderImportCode(); break;
     default: renderHome();
   }
@@ -713,6 +735,8 @@ function quizBack(){
   if(state.idx > 0){
     state.idx--;
     renderQuiz();
+  }else if(state.mode === 'judge' && state.inviteCode){
+    go('invite');
   }else{
     go('home');
   }
@@ -741,6 +765,26 @@ function finishQuiz(){
 
 /* ---------- judge flow ---------- */
 
+function renderInvite(){
+  const code = state.inviteCode;
+  if(!code){ go('home'); return; }
+  app.innerHTML = `
+    <section class="screen">
+      <div class="badge">好友邀请 · 16 题</div>
+      <h1 class="brand">TA 想看看<br>你眼中的 TA</h1>
+      <p class="lede">朋友做了个「人设偏差报告」，想让你评价一下 TA——看看你眼中的 TA，和 TA 眼中的自己差多少。</p>
+      <div class="poster" style="margin-top:16px">
+        <p class="poster-kicker">TA 的好友码（已自动填好）</p>
+        <div class="poster-code">${code}</div>
+      </div>
+      <div class="stack" style="margin-top:16px">
+        <button class="btn primary" onclick="beginJudgeWith('${code}')">开始评价 · 16 题</button>
+        <button class="btn ghost" onclick="go('home')">先看看这个测试</button>
+      </div>
+      <p class="foot">按你真实的印象作答，别留情面。答完会得到一段回传码，发回给 TA 就行。</p>
+    </section>`;
+}
+
 function renderJudgeCode(){
   app.innerHTML = `
     <section class="screen">
@@ -764,6 +808,17 @@ function beginJudge(){
     toast('请输入 6 位好友码');
     return;
   }
+  state.inviteCode = '';
+  startJudge(code);
+}
+
+function beginJudgeWith(code){
+  const c = String(code || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if(c.length !== 6) return;
+  startJudge(c);
+}
+
+function startJudge(code){
   state.mode = 'judge';
   state.idx = 0;
   state.answers = Array(16).fill(null);
@@ -1021,10 +1076,10 @@ function renderReport(){
     <div class="poster">
       <p class="poster-kicker">我的好友码</p>
       <div class="poster-code">${state.self.code}</div>
-      <p class="poster-tip">${IS_WEB ? '把链接发给朋友，让 TA 打开后选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。' : '把这份 HTML 文件发给朋友，让 TA 选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。'}</p>
+      <p class="poster-tip">${IS_WEB ? '把下面的邀请链接发给朋友，TA 点开就能直接开始评价（好友码已自动带上）；TA 测完把回传码发给你，粘贴到下方即可。' : '把这份 HTML 文件发给朋友，让 TA 选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。'}</p>
       <div class="stack">
-        <button class="btn accent small" onclick="copyText('${state.self.code}','好友码已复制')">复制好友码</button>
-        ${IS_WEB ? '<button class="btn ghost small" onclick="copyText(location.origin + location.pathname, \'链接已复制\')">复制链接</button>' : ''}
+        <button class="btn accent small" onclick="copyText(inviteUrl(),'邀请链接已复制')">复制邀请链接</button>
+        <button class="btn ghost small" onclick="copyText('${state.self.code}','好友码已复制')">仅复制好友码</button>
         <button class="btn ghost small" onclick="copyInvite()">复制邀请文案</button>
       </div>
     </div>`;
@@ -1096,7 +1151,13 @@ function init(){
       scores: scoreAnswers(f.answers)
     }));
   }
-  go('home');
+  const invited = inviteCodeFromUrl();
+  if(invited && !(state.self && state.self.code === invited)){
+    state.inviteCode = invited;
+    go('invite');
+  }else{
+    go('home');
+  }
 }
 
 init();
