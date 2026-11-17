@@ -117,10 +117,28 @@
   .gap-row .name{color:var(--muted);font-size:12.5px}
   .gap-row .nums{font-family:ui-monospace,Menlo,monospace;font-size:13px;white-space:nowrap}
   .gap-row em{font-style:normal;color:var(--accent);font-size:12px;text-align:right}
+  .dim-list{margin-top:16px}
+  .dim-line{display:grid;grid-template-columns:34px 1fr auto 26px;gap:9px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:12px}
+  .dim-line:last-child{border-bottom:0;padding-bottom:0}
+  .dim-line .name{color:var(--muted)}
+  .dim-line .meter{height:4px;border-radius:99px;background:#efe7d8;overflow:hidden}
+  .dim-line .meter i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+  .dim-line.low .meter i{background:#a89b86}
+  .dim-line .tag{font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .dim-line .val{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;text-align:right;color:var(--fg)}
   .labels{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .labels > div{background:#f5efe3;border-radius:calc(var(--site-radius,22px) * .62);padding:14px}
   .labels span{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
   .labels b{font-size:17px;line-height:1.3;display:block}
+  .friend-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:14px}
+  .friend-card{background:#f5efe3;border-radius:calc(var(--site-radius,22px) * .62);padding:12px 8px}
+  .friend-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 5px;color:var(--muted);font-size:11.5px}
+  .friend-head b{font-size:13px;color:var(--fg);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .friend-head span{white-space:nowrap}
+  .friend-card .radar{margin:0}
+  .friend-read{font-size:12px;line-height:1.68;color:var(--muted);margin:2px 5px 0}
+  .friend-words{display:flex;flex-wrap:wrap;gap:5px;margin:8px 5px 0}
+  .friend-words span{font-size:11px;line-height:1;padding:4px 7px;border-radius:99px;background:#fff;border:1px solid var(--line);color:var(--muted)}
   .words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:6px 0 2px}
   .word{padding:7px 12px;border-radius:99px;background:#f2ece0;line-height:1}
   .word:nth-child(3n+1){color:#b8422b;background:#ffece7}
@@ -165,8 +183,54 @@ const DIMS = [
   { name:'边界感',   short:'边界', high:'热络黏人', low:'独立有距', highLabel:'社交牛皮糖', lowLabel:'人间勿扰模式' },
   { name:'表达直接', short:'表达', high:'直球选手', low:'委婉缓冲', highLabel:'说话不带刹车', lowLabel:'和稀泥冠军' },
   { name:'冒险精神', short:'冒险', high:'尝鲜冒险', low:'稳妥谨慎', highLabel:'踩雷专业户', lowLabel:'舒适区钉子户' },
-  { name:'共情照顾', short:'共情', high:'照顾型',   low:'省电型',   highLabel:'免费情绪客服', lowLabel:'共情额度已用完' },
+  { name:'共情照顾', short:'共情', high:'照顾型',   low:'省电型',   highLabel:'人间暖宝宝', lowLabel:'共情额度已用完' },
   { name:'玩心幽默', short:'玩心', high:'玩梗大师', low:'正经担当', highLabel:'烂梗复读机', lowLabel:'气氛终结者' }
+];
+
+const SELF_PHRASES = [
+  {
+    high:{ lead:'你不太怕开口，场子冷下来的时候也愿意接一把。', follow:'对外的那股劲儿不算小，但你更在意的是把气氛照顾顺。' },
+    low:{ lead:'你习惯先站在边上看，不急着加入。', follow:'不是不合群，只是想先确认这个圈子让你舒服。' }
+  },
+  {
+    high:{ lead:'开心和烦躁，你基本都写在脸上。', follow:'情绪来了藏不住，别人倒也省得猜。' },
+    low:{ lead:'你的情绪收得很稳，很少让人看到失控。', follow:'不是没有波动，只是你更习惯自己消化。' }
+  },
+  {
+    high:{ lead:'出门前，你习惯把行程和时间都过一遍。', follow:'不确定感会让你不踏实，准备好了才敢放松。' },
+    low:{ lead:'行程对你更像建议，到了再说。', follow:'你不怕临时变卦，反而觉得那样才有意思。' }
+  },
+  {
+    high:{ lead:'你需要和朋友保持高频联系，消息回慢会有点不安。', follow:'关系的温度靠互动维持，冷下来你通常先察觉。' },
+    low:{ lead:'再熟的关系，你也要留一块自己的空间。', follow:'距离感不是疏远，是你恢复能量的方式。' }
+  },
+  {
+    high:{ lead:'你有话直说，不太喜欢绕弯子。', follow:'在你看来，把话说清楚比让人舒服更省事。' },
+    low:{ lead:'你说话习惯留余地，能委婉就不硬碰。', follow:'不是没想法，只是不想让场面难看。' }
+  },
+  {
+    high:{ lead:'你对没试过的事，总是有点按捺不住。', follow:'新鲜感对你来说，比稳妥更有吸引力。' },
+    low:{ lead:'你更相信熟悉和稳定，不太为未知冒险。', follow:'不是不敢，只是觉得没必要拿安稳去换刺激。' }
+  },
+  {
+    high:{ lead:'别人情绪不对时，你往往第一个察觉。', follow:'你不太会让场子里的人独自尴尬，也愿意多听两句。' },
+    low:{ lead:'共情是要耗电的，你更倾向先顾自己。', follow:'不是冷漠，只是知道电量该留给谁。' }
+  },
+  {
+    high:{ lead:'你习惯用梗和玩笑打开话题。', follow:'有你在的场子，一般不会太冷。' },
+    low:{ lead:'你更愿意认真说话，不太靠玩笑撑场。', follow:'不是没有幽默感，只是不想用热闹掩盖真实。' }
+  }
+];
+
+const SELF_DEPTH = [
+  { high:'其实很愿意主动靠近人', low:'其实只是慢热，需要一点时间确认安全感' },
+  { high:'其实情绪来得快去得也快', low:'其实只是把波动都留给自己消化' },
+  { high:'其实很享受把一切安排妥当', low:'其实更相信临场的感觉' },
+  { high:'其实很看重关系里的回应', low:'其实只是需要自己的空间来充电' },
+  { high:'其实只是不想把话绕弯', low:'其实心里很有自己的判断' },
+  { high:'其实很愿意带别人一起试新东西', low:'其实只是更清楚什么值得冒险' },
+  { high:'其实很愿意接住别人的情绪', low:'其实只是把力气留给自己在意的人' },
+  { high:'其实很会让人放松下来', low:'其实只是更愿意认真对待每一次对话' }
 ];
 
 const QUESTIONS = [
@@ -359,6 +423,7 @@ const state = {
   answers:Array(16).fill(null),
   words:['', '', ''],
   judgeCode:'',
+  judgeName:'',
   judgeResult:null,
   inviteCode:'',
   locked:false,
@@ -459,6 +524,78 @@ function misreadSentence(g){
   return '你自评 ' + g.self + '，朋友给你 ' + g.friend + '——有点偏差，但还不算离谱。他们觉得你更「' + direction + '」。';
 }
 
+function readProfile(scores){
+  const ranked = scores
+    .map((v, i) => ({ i, v, dist: Math.abs(v - 50) }))
+    .sort((a, b) => b.dist - a.dist);
+  const strong = ranked.filter(d => d.dist >= 10);
+  const flat = ranked.length - strong.length;
+  const phrase = d => SELF_PHRASES[d.i][d.v >= 50 ? 'high' : 'low'];
+  const depth = d => SELF_DEPTH[d.i][d.v >= 50 ? 'high' : 'low'];
+  const hi = ranked.reduce((a, b) => a.v >= b.v ? a : b);
+  const lo = ranked.reduce((a, b) => a.v <= b.v ? a : b);
+  let p1;
+  if(!strong.length){
+    p1 = '8 个维度，你几乎都留在了中间。不是没特点，只是你不太愿意把自己写死。';
+  }else if(hi.i === lo.i){
+    p1 = '8 个维度你给得几乎一样，都在 ' + hi.v + ' 分附近。你把自己写得很平均，没有特别想强调的一面。';
+  }else if(strong.length === 1){
+    const s1 = phrase(strong[0]);
+    p1 = '你身上最明显的是「' + labelFor(scores) + '」。' + s1.lead + s1.follow + '第一眼未必能看全你，相处久了才会发现，你' + depth(strong[0]) + '。';
+  }else{
+    const s1 = phrase(strong[0]);
+    const s2 = phrase(strong[1]);
+    p1 = s1.lead + s1.follow + '同时，' + s2.lead;
+    if(strong[2]) p1 += '另外，' + phrase(strong[2]).lead;
+    p1 += '第一眼未必能看全你，相处久了才会发现，你' + depth(strong[0]) + '。';
+  }
+  return { p1, ranked, strong, flat, hi, lo };
+}
+
+function readParagraph(scores){
+  return readProfile(scores).p1;
+}
+
+function selfReadHTML(selfScores, friendScores, analysis){
+  const profile = readProfile(selfScores);
+  const { strong, flat, hi, lo } = profile;
+  const p1 = profile.p1;
+  const head = '你把自己描述成「' + labelFor(selfScores) + '」';
+  const status = analysis
+    ? '朋友那边已经交卷：他们眼中的你是「' + labelFor(friendScores) + '」，懂你 ' + analysis.know + '%，和你差最多的是「' + DIMS[analysis.max.i].name + '」——下面有完整对比。'
+    : '现在这套人设还只有你一个人签字，朋友会不会认，要等他们交卷。';
+  let p2;
+  if(!strong.length){
+    p2 = '这样的自画像最耐聊，也最容易被朋友补全。' + status;
+  }else if(hi.i === lo.i){
+    p2 = '朋友要分清你，可能得靠慢慢相处。' + status;
+  }else if(strong.length === 1){
+    p2 = '有 ' + flat + ' 个维度你给在中间，这些方面你自己也没太想清楚，在朋友眼里最容易出现分歧。' + status;
+  }else{
+    p2 = (flat >= 3
+      ? '有 ' + flat + ' 个维度你给在中间，这些方面你自己也没太想清楚，在朋友眼里最容易出现分歧。'
+      : '8 个维度你给得都很明确，自我认知相当笃定。') + status;
+  }
+  const rows = DIMS.map((d, i) => {
+    const v = selfScores[i];
+    const lab = Math.abs(v - 50) < 10 ? '看情况' : (v >= 50 ? d.highLabel : d.lowLabel);
+    return '<div class="dim-line' + (v < 50 ? ' low' : '') + '">'
+      + '<span class="name">' + d.short + '</span>'
+      + '<div class="meter"><i style="width:' + v + '%"></i></div>'
+      + '<span class="tag">' + lab + '</span>'
+      + '<span class="val">' + v + '</span>'
+      + '</div>';
+  }).join('');
+  return '<div class="card">'
+    + '<p class="eyebrow">人物解读</p>'
+    + '<h3>' + head + '</h3>'
+    + '<p class="sub">' + p1 + '</p>'
+    + '<p class="sub" style="margin-top:10px">' + p2 + '</p>'
+    + '<p class="eyebrow" style="margin:18px 0 0">8 个维度自评</p>'
+    + '<div class="dim-list">' + rows + '</div>'
+    + '</div>';
+}
+
 function collectWords(friends){
   const map = new Map();
   friends.forEach(f => {
@@ -497,6 +634,10 @@ function b64DecodeUnicode(str){
   const bin = atob(s);
   const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
   return new TextDecoder().decode(bytes);
+}
+
+function cleanName(raw){
+  return String(raw || '').replace(/\s+/g, '').replace(/[\/\\.\\,，、]/g, '').slice(0, 8);
 }
 
 let toastTimer = null;
@@ -560,7 +701,7 @@ function copyInvite(){
   if(!state.self) return;
   const where = IS_WEB
     ? '点开这个链接直接开始评价我（好友码已经带上了，不用手输）：' + inviteUrl()
-    : '打开我发你的 HTML 文件，选「帮好友评价」，输入好友码 ' + state.self.code;
+    : '打开页面后选「帮好友评价」，输入好友码 ' + state.self.code;
   const text = '我做了个「人设偏差报告」，想看看你眼中的我是什么样。' + where + '，16 道题就好。';
   copyText(text, '邀请文案已复制');
 }
@@ -571,6 +712,7 @@ function radarSVG(selfScores, friendScores, opts){
   opts = opts || {};
   const c1 = opts.c1 || '#ff5a3c';
   const f1 = opts.f1 || 'rgba(255,90,60,.16)';
+  const compact = !!opts.compact;
   const cx = 180, cy = 175, R = 112;
   const angles = Array.from({ length: 8 }, (_, i) => -Math.PI / 2 + i * Math.PI / 4);
 
@@ -585,10 +727,10 @@ function radarSVG(selfScores, friendScores, opts){
   };
 
   const grid = [25, 50, 75, 100]
-    .map(v => '<polygon points="' + ring(v) + '" fill="none" stroke="#e7dfd1" stroke-width="1"/>')
+    .map(v => '<polygon points="' + ring(v) + '" fill="none" stroke="#e7dfd1" stroke-width="' + (compact ? 1.6 : 1) + '"/>')
     .join('');
   const axes = angles
-    .map(a => '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + Math.cos(a) * R) + '" y2="' + (cy + Math.sin(a) * R) + '" stroke="#e7dfd1" stroke-width="1"/>')
+    .map(a => '<line x1="' + cx + '" y1="' + cy + '" x2="' + (cx + Math.cos(a) * R) + '" y2="' + (cy + Math.sin(a) * R) + '" stroke="#e7dfd1" stroke-width="' + (compact ? 1.6 : 1) + '"/>')
     .join('');
   const labels = angles.map((a, i) => {
     const lr = R + 24;
@@ -597,26 +739,26 @@ function radarSVG(selfScores, friendScores, opts){
     const cos = Math.cos(a);
     const anchor = cos > 0.25 ? 'start' : cos < -0.25 ? 'end' : 'middle';
     const dy = Math.sin(a) > 0.6 ? 12 : Math.sin(a) < -0.6 ? -4 : 4;
-    return '<text x="' + x + '" y="' + (y + dy) + '" text-anchor="' + anchor + '" fill="#857d70" font-size="11.5">' + DIMS[i].short + '</text>';
+    return '<text x="' + x + '" y="' + (y + dy) + '" text-anchor="' + anchor + '" fill="#857d70" font-size="' + (compact ? 16 : 11.5) + '">' + DIMS[i].short + '</text>';
   }).join('');
   const friendPoly = friendScores
-    ? '<polygon points="' + polygon(friendScores) + '" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>'
+    ? '<polygon points="' + polygon(friendScores) + '" fill="rgba(47,107,255,.12)" stroke="#2f6bff" stroke-width="' + (compact ? 3 : 2) + '" stroke-dasharray="' + (compact ? '6 5' : '5 4') + '" stroke-linejoin="round"/>'
     : '';
   const friendDots = friendScores
     ? friendScores.map((v, i) => {
         const p = point(i, v);
-        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#2f6bff"/>';
+        return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (compact ? 4.5 : 3) + '" fill="#2f6bff"/>';
       }).join('')
     : '';
   const selfDots = selfScores.map((v, i) => {
     const p = point(i, v);
-    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3.2" fill="' + c1 + '"/>';
+    return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (compact ? 4.8 : 3.2) + '" fill="' + c1 + '"/>';
   }).join('');
 
   return '<svg viewBox="-34 -24 428 400" class="radar" role="img" aria-label="人设雷达图">'
     + grid + axes
     + friendPoly
-    + '<polygon points="' + polygon(selfScores) + '" fill="' + f1 + '" stroke="' + c1 + '" stroke-width="2.5" stroke-linejoin="round"/>'
+    + '<polygon points="' + polygon(selfScores) + '" fill="' + f1 + '" stroke="' + c1 + '" stroke-width="' + (compact ? 3.5 : 2.5) + '" stroke-linejoin="round"/>'
     + selfDots + friendDots
     + labels
     + '</svg>';
@@ -824,6 +966,7 @@ function startJudge(code){
   state.answers = Array(16).fill(null);
   state.words = ['', '', ''];
   state.judgeCode = code;
+  state.judgeName = '';
   state.judgeResult = null;
   state.locked = false;
   state.pickToken++;
@@ -839,6 +982,9 @@ function renderWords(){
         <div class="spacer"></div>
       </div>
       <div class="qcard">
+        <p class="qindex">你的称呼（可选）</p>
+        <input class="input" id="nick" maxlength="8" placeholder="留个昵称，方便 TA 对上号" aria-label="你的昵称" autocomplete="off" value="${esc(state.judgeName || '')}">
+        <div class="or">然后</div>
         <p class="qindex">TA 的关键词</p>
         <h2 class="qtext">用三个词形容 TA</h2>
         <p class="sub" style="margin:0 0 18px">写你真实想到的词，会出现在 TA 的报告里。不填也可以。</p>
@@ -847,7 +993,7 @@ function renderWords(){
         </div>
         <button class="btn primary" style="margin-top:18px" onclick="submitJudge()">生成回传码</button>
       </div>
-      <p class="hint">回传码只包含答案和关键词，不包含你的身份信息。</p>
+      <p class="hint">回传码会带上答案、关键词和昵称，只发给 TA。</p>
     </section>`;
 }
 
@@ -863,10 +1009,14 @@ function submitJudge(){
     })
     .filter(Boolean);
   state.words = words;
+  const nickEl = document.getElementById('nick');
+  const name = cleanName(nickEl ? nickEl.value : '');
+  state.judgeName = name;
   const scores = scoreAnswers(state.answers);
   const digits = state.answers.join('');
-  const code = 'P1.' + state.judgeCode + '.' + digits + '.' + b64EncodeUnicode(words.join('/'));
-  state.judgeResult = { scores, code, words };
+  const base = state.judgeCode + '.' + digits + '.' + b64EncodeUnicode(words.join('/'));
+  const code = (name ? 'P2.' : 'P1.') + base + (name ? '.' + b64EncodeUnicode(name) : '');
+  state.judgeResult = { scores, code, words, name };
   go('judgeDone');
 }
 
@@ -920,7 +1070,7 @@ function renderImportCode(){
         <div class="spacer"></div>
       </div>
       <h1 class="brand report">粘贴好友的<br>回传码</h1>
-      <p class="lede">好友测完后会得到一段以 P1 开头的码，粘贴到这里，就能看到 TA 眼中的你。</p>
+      <p class="lede">好友测完后会得到一段以 P1 或 P2 开头的码，粘贴到这里，就能看到 TA 眼中的你。</p>
       <textarea class="input code-input" id="importInput" aria-label="好友回传码" placeholder="P1.XXXXXX.0123012301230123..."></textarea>
       <button class="btn primary" style="margin-top:14px" onclick="importFriend()">导入评价</button>
       <p class="foot">回传码只在本机解析，不会上传。</p>
@@ -929,12 +1079,13 @@ function renderImportCode(){
 
 function parseFriendCode(raw){
   const parts = String(raw || '').trim().split('.');
-  if(parts.length < 3 || parts[0] !== 'P1') return null;
+  const version = parts[0];
+  if(parts.length < 3 || (version !== 'P1' && version !== 'P2')) return null;
   const selfCode = parts[1];
   const digits = parts[2];
   if(!/^[A-Z0-9]{6}$/.test(selfCode)) return null;
   if(!/^[0-3]{16}$/.test(digits)) return null;
-  const wordsRaw = parts.slice(3).join('.');
+  const wordsRaw = version === 'P2' ? (parts[3] || '') : parts.slice(3).join('.');
   let words = [];
   if(wordsRaw){
     let decoded = '';
@@ -945,10 +1096,15 @@ function parseFriendCode(raw){
     }
     words = decoded.split('/').filter(Boolean).slice(0, 3);
   }
+  let name = '';
+  if(version === 'P2' && parts[4]){
+    try{ name = cleanName(b64DecodeUnicode(parts[4])); }catch(e){ name = ''; }
+  }
   return {
     selfCode,
     answers: digits.split('').map(Number),
-    words
+    words,
+    name
   };
 }
 
@@ -968,7 +1124,8 @@ function importFriend(){
     toast('这个回传码不是发给你的');
     return;
   }
-  const id = parsed.answers.join('') + '|' + parsed.words.join('/');
+  const baseId = parsed.answers.join('') + '|' + parsed.words.join('/');
+  const id = parsed.name ? baseId + '|' + parsed.name : baseId;
   if(state.friends.some(f => f.id === id)){
     toast('这条评价已经导入过了');
     return;
@@ -976,6 +1133,7 @@ function importFriend(){
   state.friends.push({
     answers: parsed.answers,
     words: parsed.words,
+    name: parsed.name,
     scores: scoreAnswers(parsed.answers),
     id,
     ts: Date.now()
@@ -1007,12 +1165,20 @@ function renderReport(){
     ? '已收到 ' + state.friends.length + ' 位好友的评价' + (state.friends.length < 3 ? '，再找几位会更准' : '')
     : '还没有好友评价，先看看你的自画像。';
 
-  const statsHtml = `
+  const strongCount = selfScores.filter(v => Math.abs(v - 50) >= 10).length;
+  const statsHtml = analysis ? `
     <div class="stats">
-      <div class="stat"><b>${analysis ? analysis.know + '<small>%</small>' : '—'}</b><span>好友懂你</span></div>
+      <div class="stat"><b>${analysis.know}<small>%</small></b><span>好友懂你</span></div>
       <div class="stat"><b>${state.friends.length}<small> 位</small></b><span>已收到评价</span></div>
-      <div class="stat"><b>${analysis ? analysis.maxAbs + '<small> 分</small>' : '—'}</b><span>最大偏差</span></div>
+      <div class="stat"><b>${analysis.maxAbs}<small> 分</small></b><span>最大偏差</span></div>
+    </div>` : `
+    <div class="stats">
+      <div class="stat"><b>${strongCount}<small> 个</small></b><span>鲜明维度</span></div>
+      <div class="stat"><b>${8 - strongCount}<small> 个</small></b><span>中间地带</span></div>
+      <div class="stat"><b>${state.friends.length}<small> 位</small></b><span>已收到评价</span></div>
     </div>`;
+
+  const selfRead = selfReadHTML(selfScores, friendScores, analysis);
 
   const radarHtml = `
     <div class="card radar-wrap">
@@ -1061,6 +1227,24 @@ function renderReport(){
       ${friendScores && friendLabel === selfLabel ? '<p class="sub" style="margin:12px 0 0">这次没跑偏，两边看到的是同一个人。</p>' : ''}
     </div>`;
 
+  const friendsHtml = state.friends.length ? `
+    <div class="card">
+      <p class="eyebrow">每位好友眼中的你</p>
+      <div class="friend-grid">
+        ${state.friends.map((f, i) => {
+          const fs = f.scores || scoreAnswers(f.answers);
+          const name = f.name || ('好友 ' + (i + 1));
+          return `<div class="friend-card">
+            <div class="friend-head"><b>${esc(name)}</b><span>「${labelFor(fs)}」</span></div>
+            ${radarSVG(selfScores, fs, { compact:true })}
+            <p class="friend-read">${readParagraph(fs)}</p>
+            ${f.words && f.words.length ? `<div class="friend-words">${f.words.map(w => `<span>${esc(w)}</span>`).join('')}</div>` : ''}
+          </div>`;
+        }).join('')}
+      </div>
+      <p class="sub" style="margin:12px 5px 0">红实线是你自评，蓝虚线是这位好友眼中的你。</p>
+    </div>` : '';
+
   const wordsHtml = words.length ? `
     <div class="card">
       <p class="eyebrow">朋友用来形容你的词</p>
@@ -1076,11 +1260,11 @@ function renderReport(){
     <div class="poster">
       <p class="poster-kicker">我的好友码</p>
       <div class="poster-code">${state.self.code}</div>
-      <p class="poster-tip">${IS_WEB ? '把下面的邀请链接发给朋友，TA 点开就能直接开始评价（好友码已自动带上）；TA 测完把回传码发给你，粘贴到下方即可。' : '把这份 HTML 文件发给朋友，让 TA 选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。'}</p>
+      <p class="poster-tip">${IS_WEB ? '把下面的邀请链接发给朋友，TA 点开就能直接开始评价（好友码已自动带上）；TA 测完把回传码发给你，粘贴到下方即可。' : '让 TA 选「帮好友评价」并输入上面的码；TA 测完把回传码发给你，粘贴到下方即可。'}</p>
       <div class="stack">
-        <button class="btn accent small" onclick="copyText(inviteUrl(),'邀请链接已复制')">复制邀请链接</button>
+        <button class="btn accent small" onclick="copyInvite()">复制邀请文案</button>
+        <button class="btn ghost small" onclick="copyText(inviteUrl(),'邀请链接已复制')">复制邀请链接</button>
         <button class="btn ghost small" onclick="copyText('${state.self.code}','好友码已复制')">仅复制好友码</button>
-        <button class="btn ghost small" onclick="copyInvite()">复制邀请文案</button>
       </div>
     </div>`;
 
@@ -1088,7 +1272,7 @@ function renderReport(){
     <div class="card">
       <p class="eyebrow">导入好友评价</p>
       <h3 style="font-size:17px;line-height:1.45;margin:0 0 10px">粘贴好友的回传码</h3>
-      <textarea class="input code-input" id="importInput" aria-label="好友回传码" placeholder="P1.XXXXXX.0123012301230123..."></textarea>
+      <textarea class="input code-input" id="importInput" aria-label="好友回传码" placeholder="P1 或 P2 开头的回传码，整段粘贴"></textarea>
       <button class="btn primary" style="margin-top:12px" onclick="importFriend()">导入评价</button>
     </div>`;
 
@@ -1107,9 +1291,11 @@ function renderReport(){
       <div class="report-stack">
         ${statsHtml}
         ${radarHtml}
+        ${selfRead}
         ${misreadHtml}
         ${otherHtml}
         ${labelsHtml}
+        ${friendsHtml}
         ${wordsHtml}
         ${shareHtml}
         ${importHtml}
